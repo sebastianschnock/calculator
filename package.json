@@ -4,7 +4,9 @@
   "description": "A customizable calculator widget for your webpage",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib && cp src/css/* lib"
+    "build:css": "cp src/css/* lib",
+    "build:js": "browserify src/js/calculator.js -t babelify --outfile lib/calculator.js",
+    "build": "npm run build:css && npm run build:js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,7 @@
   },
   "homepage": "https://github.com/sebastianschnock/calculator",
   "devDependencies": {
-    "babel-cli": "^6.4.5",
-    "babel-preset-es2015": "^6.3.13"
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0"
   }
 }
