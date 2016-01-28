@@ -1,37 +1,4 @@
-const operators = [
-	{
-		symbol: '+',
-		numberOfOperands: 2,
-		evaluate: (x, y) => x + y
-	},
-	{
-		symbol: '-',
-		numberOfOperands: 2,
-		evaluate: (x, y) => x - y
-	},
-	{
-		symbol: '/',
-		numberOfOperands: 2,
-		evaluate: (x, y) => x / y
-	},
-	{
-		symbol: '*',
-		numberOfOperands: 2,
-		evaluate: (x, y) => x * y
-	},
-	{
-		symbol: '^',
-		numberOfOperands: 2,
-		evaluate: (x, y) => Math.pow(x, y)
-	}
-];
-
-function getOperator(symbol) {
-	for(let operator of operators) {
-		if(operator.symbol === symbol) return operator;
-	}
-	return undefined;
-}
+import getOperator from './operators';
 
 /**
  * Evaluates a mathematical expression in postfix notation.
@@ -62,4 +29,4 @@ function evaluate(postfix) {
 	return operandStack[0];
 }
 
-module.exports = { evaluate };
+export default evaluate;

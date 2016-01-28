@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { convertInfixToPostfix } from '../src/js/shunting-yard';
+import convertInfixToPostfix from '../src/js/shunting-yard';
 
 describe('The Shunting-yard converter', () => {
 

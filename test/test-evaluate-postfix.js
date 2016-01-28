@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { evaluate } from '../src/js/evaluate-postfix';
+import evaluate from '../src/js/evaluate-postfix';
 
 describe('The postfix evaluation', () => {
 

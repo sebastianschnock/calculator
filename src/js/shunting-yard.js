@@ -1,37 +1,4 @@
-const operators = [
-	{
-		symbol: '+',
-		precedence: 2,
-		leftAssociative: true
-	},
-	{
-		symbol: '-',
-		precedence: 2,
-		leftAssociative: true
-	},
-	{
-		symbol: '/',
-		precedence: 3,
-		leftAssociative: true
-	},
-	{
-		symbol: '*',
-		precedence: 3,
-		leftAssociative: true
-	},
-	{
-		symbol: '^',
-		precedence: 4,
-		leftAssociative: false
-	}
-];
-
-function getOperator(symbol) {
-	for(let operator of operators) {
-		if(operator.symbol === symbol) return operator;
-	}
-	return undefined;
-}
+import getOperator from './operators';
 
 /**
  * Converts a string in infix notation to postfix oder Reverse Polish notation.
@@ -39,7 +6,8 @@ function getOperator(symbol) {
  * This function uses the "Shunting-yard algorithm".
  * 
  * @method     convertInfixToPostfix
- * @param      {String}  infix   the string in infix to convert
+ * @param      {String}	infix   the string in infix to convert
+ * @return     {String}	the converted string in postfix notation
  */
 function convertInfixToPostfix(infix) {
 
@@ -47,10 +15,9 @@ function convertInfixToPostfix(infix) {
 	let operatorStack = [];
 	let operator;
 
-	let tokens = infix.split(' ');
+	const tokens = infix.split(' ');
 	for(let token of tokens) {
 
-		// add numbers to output queue
 		if(Number.isInteger(parseInt(token))) {
 			outputQueue.push(token);
 		}
@@ -66,7 +33,6 @@ function convertInfixToPostfix(infix) {
 		}
 	}
 
-	// add operators still in the stack to output queue
 	for(let operator of operatorStack) {
 		outputQueue.push(operator.symbol);
 	}
@@ -74,4 +40,4 @@ function convertInfixToPostfix(infix) {
 	return outputQueue.join(' ');
 }
 
-module.exports = { convertInfixToPostfix };
+export default convertInfixToPostfix;
