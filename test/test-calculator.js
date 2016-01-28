@@ -28,4 +28,9 @@ describe('The calculator', () => {
 		expect(result).to.equal(125);
 	});
 
+	it('should work with point before line precedence', () => {
+		let result = calculate('2 + 3 * 4');
+		expect(result).to.equal(14);
+	});
+
 })

@@ -21,8 +21,8 @@ function evaluate(postfix) {
 		}
 
 		else if((operator = getOperator(token)) !== undefined) {
-			var operands = operandStack.splice(0, operator.numberOfOperands);
-			operandStack.push(operator.evaluate.apply(this, operands));
+			var operands = operandStack.splice(-operator.numberOfOperands, operator.numberOfOperands);
+			operandStack.push(operator.evaluate(...operands));
 		}
 	}
 

@@ -23,9 +23,9 @@ function convertInfixToPostfix(infix) {
 		}
 
 		else if((operator = getOperator(token)) !== undefined) {
-			while(operatorStack.length > 1 &&
-				((operator.leftAssociative && operator.precedence <= operatorStack[0].precedence) ||
-				(!operator.leftAssociative && operator.precedence < operatorStack[0]))) {
+			while(operatorStack.length > 0 &&
+				((operator.leftAssociative && operator.precedence <= operatorStack[operatorStack.length-1].precedence) ||
+				 (!operator.leftAssociative && operator.precedence < operatorStack[operatorStack.length-1]))) {
 				outputQueue.push(operatorStack.pop().symbol);
 			}
 
@@ -33,9 +33,8 @@ function convertInfixToPostfix(infix) {
 		}
 	}
 
-	for(let operator of operatorStack) {
-		outputQueue.push(operator.symbol);
-	}
+	// add the rest of operator stack to the output queue
+	outputQueue.push(...operatorStack.map(o => o.symbol).reverse());
 
 	return outputQueue.join(' ');
 }
