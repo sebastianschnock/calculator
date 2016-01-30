@@ -1,0 +1,8 @@
+.calculator {
+}
+
+.calc__display {
+	border: 1px solid #aaa;
+	height: 2em;
+	display: block;
+}

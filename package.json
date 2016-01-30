@@ -4,9 +4,10 @@
   "description": "A customizable calculator widget for your webpage",
   "scripts": {
     "test": "mocha --compilers js:babel-register --reporter nyan",
-    "build:css": "cp src/css/* lib",
-    "build:js": "browserify src/js/calculator.js -t babelify --outfile lib/calculator.js",
-    "build": "npm run build:css && npm run build:js"
+    "build:html": "cp src/html/* dist",
+    "build:css": "cp src/css/* dist",
+    "build:js": "browserify src/js/app.js -t babelify --outfile dist/calculator.js",
+    "build": "npm run build:html && npm run build:css && npm run build:js"
   },
   "repository": {
     "type": "git",
