@@ -15,8 +15,7 @@ function convertInfixToPostfix(infix) {
 	let operatorStack = [];
 	let operator;
 
-	const tokens = infix.split(' ');
-	for(let token of tokens) {
+	for(let token of infix.split(' ')) {
 
 		if(Number.isInteger(parseInt(token))) {
 			outputQueue.push(token);

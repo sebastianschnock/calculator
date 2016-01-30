@@ -13,8 +13,7 @@ function evaluate(postfix) {
 	let operand;
 	let operator;
 
-	const tokens = postfix.split(' ');
-	for(let token of tokens) {
+	for(let token of postfix.split(' ')) {
 
 		if(Number.isInteger(operand = parseInt(token))) {
 			operandStack.push(operand);
