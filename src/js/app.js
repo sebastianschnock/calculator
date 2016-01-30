@@ -25,7 +25,7 @@ import calculate from './calculator';
 
 	function addInput(elem, input) {
 		elem.addEventListener('click', () => {
-			displayElem.textContent += ` ${input}`;
+			displayElem.textContent += `${input}`;
 		});
 	}
 
