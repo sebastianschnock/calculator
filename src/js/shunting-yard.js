@@ -1,4 +1,5 @@
 import getOperator from './operators';
+import { isNumeric } from './helpers';
 
 /**
  * Converts a string in infix notation to postfix oder Reverse Polish notation.
@@ -17,7 +18,7 @@ function convertInfixToPostfix(infix) {
 
 	for(let token of infix.split(' ')) {
 
-		if(Number.isInteger(parseInt(token))) {
+		if(isNumeric(Number.parseFloat(token))) {
 			outputQueue.push(token);
 		}
 

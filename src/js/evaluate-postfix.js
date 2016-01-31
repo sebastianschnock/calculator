@@ -1,4 +1,5 @@
 import getOperator from './operators';
+import { isNumeric } from './helpers';
 
 /**
  * Evaluates a mathematical expression in postfix notation.
@@ -15,7 +16,8 @@ function evaluate(postfix) {
 
 	for(let token of postfix.split(' ')) {
 
-		if(Number.isInteger(operand = parseInt(token))) {
+		// if(Number.isInteger(operand = parseInt(token))) {
+		if(isNumeric(operand = parseFloat(token))) {
 			operandStack.push(operand);
 		}
 

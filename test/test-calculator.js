@@ -33,4 +33,16 @@ describe('The calculator', () => {
 		expect(result).to.equal(14);
 	});
 
+	it('should support negative numbers', () => {
+		let result = calculate('-2 - 2');
+		expect(result).to.equal(-4);
+	});
+
+	it('should work when an expression begins with "-"', () => {
+		expect(calculate('- 2 - 2')).to.equal(-4);
+	});
+
+	it('should normalize floating point numbers', () => {
+		expect(calculate('.1 + .2')).to.equal(0.3);
+	});
 })

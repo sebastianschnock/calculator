@@ -28,4 +28,9 @@ describe('The postfix evaluation', () => {
 		expect(result).to.equal(9);
 	});
 
+	it('should support negative numbers', () => {
+		let result = evaluate('0 2 -');
+		expect(result).to.equal(-2);
+	})
+
 })
