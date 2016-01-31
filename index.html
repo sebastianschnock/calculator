@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8' />
+	<title>calc</title>
+	<link rel='stylesheet' href='calculator.css' />
+</head>
+<body>
+	
+	<article class='calc'>
+		
+		<header class='calc__header'>
+			<div class='calc__title'>Calculator</div>
+		</header>
+
+		<output class='calc__display'>
+			<span class='calc__expression'></span>
+		</output>
+
+		<div class='calc__controls'>
+		
+			<div class='calc__digits'>
+				<button class='calc__digit' data-calc-input='1'>1</button>
+				<button class='calc__digit' data-calc-input='2'>2</button>
+				<button class='calc__digit' data-calc-input='3'>3</button>
+				<button class='calc__digit' data-calc-input='4'>4</button>
+				<button class='calc__digit' data-calc-input='5'>5</button>
+				<button class='calc__digit' data-calc-input='6'>6</button>
+				<button class='calc__digit' data-calc-input='7'>7</button>
+				<button class='calc__digit' data-calc-input='8'>8</button>
+				<button class='calc__digit' data-calc-input='9'>9</button>
+				<button class='calc__digit' data-calc-input='0'>0</button>
+				<button class='calc__digit' data-calc-input='.'>.</button>
+			</div>
+
+			<div class='calc__operators'>
+				<button class='calc__opr calc__opr--add' data-calc-input=' + '>+</button>
+				<button class='calc__opr calc__opr--subtract' data-calc-input=' - '>-</button>
+				<button class='calc__opr calc__opr--multiply' data-calc-input=' × '>×</button>
+				<button class='calc__opr calc__opr--divide' data-calc-input=' ÷ '>÷</button>
+				<button class='calc__opr calc__opr--exp' data-calc-input=' ^ '>xⁿ</button>
+			</div>
+
+			<div class='calc__main-controls'>
+				<button class='calc__main calc__main--calculate'>=</button>
+				<button class='calc__main calc__main--clear'>c</button>
+			</div>
+
+		</div>
+
+	</article>
+
+	<script src='calculator.js'></script>
+
+</body>
+</html>
