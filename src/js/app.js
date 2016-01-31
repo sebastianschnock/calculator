@@ -3,6 +3,9 @@ import { isNumeric } from './helpers';
 
 (() => {
 
+	// fix NodeList iteration on chrome
+	NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
 	let calcElem = document.querySelector('.calc');
 	let displayElem = calcElem.querySelector('.calc__expression');
 	
