@@ -11,6 +11,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (function () {
 
+	NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
 	var calcElem = document.querySelector('.calc');
 	var displayElem = calcElem.querySelector('.calc__expression');
 
