@@ -67,6 +67,23 @@ html {
   box-sizing: inherit;
 }
 
+@font-face {
+	font-family: 'Computer Modern Serif';
+	src: url('fonts/cmunbx.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('fonts/SourceSansPro-Regular.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Lobster';
+	src: url('fonts/Lobster_1.3.otf') format('truetype');
+}
+
 
 
 
@@ -80,15 +97,19 @@ html {
 
 
 .calc {
-	height: 70vh;
-	width: 90vw;
-	margin: 5vh auto;
-	padding: 3vh 5vw;
-	background-color: #f2f2f2;
+	height: 85vmin;
+	width: 90vmin;
+	margin: 5vmin auto;
+	padding: 2% 5% 4%;
 	border: 1px solid #666;
 	border-radius: 5px;
+	background: linear-gradient(to bottom, #96ceb4 0%,#96ceb4 15%,#ffeead 15%,#ffeead 100%);
 }
 
+.calc * {
+	font-size: 4vmin;
+}
+ 
 
 
 
@@ -102,11 +123,18 @@ html {
 
 
 .calc__header {
-	height: 10%;
-	font-weight: bold;
+	height: 13%;
+	margin-bottom: 5%;
+	display: flex;
+	align-items: center;
 }
 
-
+.calc__title {
+	font-family: 'Lobster', sans-serif;
+	font-size: 2.2em;
+	color: #ffccef;
+	text-shadow: 2px 2px 0px rgba(0,0,0,.4);
+}
 
 
 
@@ -126,6 +154,9 @@ html {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	font-family: 'Computer Modern Serif', serif;
+	font-weight: bold;
+	overflow: hidden;
 }
 
 
@@ -141,7 +172,7 @@ html {
 
 
 .calc__controls {
-	height: 75%;
+	height: 65%;
 	padding-top: 5%;
 	display: flex;
 	flex-wrap: wrap;
@@ -149,17 +180,15 @@ html {
 	justify-content: space-between;
 }
 
-.calc button {
+.calc__digit, .calc__opr, .calc__main {
 	background-color: #fff;
 	border: 1px solid #333;
 	background-color: #fff;
 	border-radius: 5px;	
 	cursor: pointer;
 	outline: 0;
-}
-
-.calc button:hover {
-	background-color: rgba(0, 0, 0, .1);
+	font-family: 'Source Sans Pro', serif;
+	font-weight: bold;		
 }
 
 /* remove dotted outline on buttons */
@@ -190,9 +219,13 @@ html {
 
 .calc__digit {
 	width: 30%;
-	height: 20%
+	height: 20%;
+	background-color: rgb(255, 204, 92);
 }
 
+.calc__digit:hover {
+	background-color: rgba(255, 204, 92, .5);
+}
 
 
 
@@ -217,6 +250,11 @@ html {
 .calc__opr {
 	width: 40%;
 	height: 25%;
+	background-color: rgb(136, 216, 176);
+}
+
+.calc__opr:hover {
+	background-color: rgba(136, 216, 176, .5);
 }
 
 .calc__opr:last-of-type {
@@ -253,9 +291,20 @@ html {
 .calc__main--calculate {
 	width: 60%;
 	height: 100%;
+	background-color: rgb(136, 216, 176);
+}
+
+.calc__main--calculate:hover {
+	background-color: rgba(136, 216, 176, .5);
 }
 
 .calc__main--clear {
 	width: 30%;
 	height: 35%;
+	background-color: rgb(255, 111, 105);
+	font-variant: small-caps;
+}
+
+.calc__main--clear:hover {
+	background-color: rgba(255, 111, 105, .5);
 }

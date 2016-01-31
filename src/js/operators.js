@@ -26,14 +26,14 @@ const operators = [
 		evaluate: (x, y) => x - y
 	},
 	{
-		symbol: '/',
+		symbol: '÷',
 		precedence: 3,
 		leftAssociative: true,
 		numberOfOperands: 2,
 		evaluate: (x, y) => x / y
 	},
 	{
-		symbol: '*',
+		symbol: '×',
 		precedence: 3,
 		leftAssociative: true,
 		numberOfOperands: 2,

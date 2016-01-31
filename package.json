@@ -6,8 +6,9 @@
     "test": "mocha --compilers js:babel-register --reporter nyan",
     "build:html": "cp src/html/* dist",
     "build:css": "cp src/css/* dist",
+    "build:assets": "cp -r src/assets/* dist",
     "build:js": "browserify src/js/app.js -t babelify --outfile dist/calculator.js",
-    "build": "npm run build:html && npm run build:css && npm run build:js"
+    "build": "npm run build:html && npm run build:css && npm run build:assets && npm run build:js"
   },
   "repository": {
     "type": "git",
