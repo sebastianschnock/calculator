@@ -1,9 +1,10 @@
 import calculate from './calculator';
+import { isNumeric } from './helpers';
 
 (() => {
 
 	let calcElem = document.querySelector('.calc');
-	let displayElem = calcElem.querySelector('.calc__display');
+	let displayElem = calcElem.querySelector('.calc__expression');
 	
 	// set up digit and operator buttons
 	for(let elem of calcElem.querySelectorAll('[data-calc-input]')) {
@@ -21,7 +22,6 @@ import calculate from './calculator';
 	clearElem.addEventListener('click', () => {
 		displayElem.textContent = '';
 	});
-
 
 	function addInput(elem, input) {
 		elem.addEventListener('click', () => {

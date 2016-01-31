@@ -1,8 +1,261 @@
-.calculator {
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
+
+
+
+
+/******************************************************************************
+ *
+ *	General page styles
+ *
+ *****************************************************************************/
+
+
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: main frame
+ *
+ *****************************************************************************/
+
+
+
+.calc {
+	height: 70vh;
+	width: 90vw;
+	margin: 5vh auto;
+	padding: 3vh 5vw;
+	background-color: #f2f2f2;
+	border: 1px solid #666;
+	border-radius: 5px;
+}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: header
+ *
+ *****************************************************************************/
+
+
+
+.calc__header {
+	height: 10%;
+	font-weight: bold;
+}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: display
+ *
+ *****************************************************************************/
+
+
+
 .calc__display {
-	border: 1px solid #aaa;
-	height: 2em;
+	border: 1px solid #666;
+	height: 15%;
 	display: block;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: buttons panel
+ *
+ *****************************************************************************/
+
+
+
+.calc__controls {
+	height: 75%;
+	padding-top: 5%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.calc button {
+	background-color: #fff;
+	border: 1px solid #333;
+	background-color: #fff;
+	border-radius: 5px;	
+	cursor: pointer;
+	outline: 0;
+}
+
+.calc button:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+/* remove dotted outline on buttons */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: digit buttons
+ *
+ *****************************************************************************/
+
+
+
+.calc__digits {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	width: 55%;
+	justify-content: space-between;
+	margin-right: 10%;
+	align-content: space-between;
+}
+
+.calc__digit {
+	width: 30%;
+	height: 20%
+}
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: operator buttons
+ *
+ *****************************************************************************/
+
+
+
+.calc__operators {
+	height: 50%;
+	width: 35%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: space-between;
+}
+
+.calc__opr {
+	width: 40%;
+	height: 25%;
+}
+
+.calc__opr:last-of-type {
+	margin-left: auto;
+}
+
+/* re-order operators */
+.calc__opr--add { order: 0; }
+.calc__opr--multiply { order: 1; }
+.calc__opr--subtract { order: 2; }
+.calc__opr--divide { order: 3; }
+.calc__opr--exp { order: 4; }
+
+
+
+
+
+/******************************************************************************
+ *
+ *	Calculator: main control buttons
+ *
+ *****************************************************************************/
+
+
+
+.calc__main-controls {
+	height: 35%;
+	width: 35%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.calc__main--calculate {
+	width: 60%;
+	height: 100%;
+}
+
+.calc__main--clear {
+	width: 30%;
+	height: 35%;
 }
