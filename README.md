@@ -26,7 +26,10 @@ npm run build
 The output is in the ```dist``` folder.
 
 # Run it
-Open the file ```dist/calculator.html``` your browser.
+```
+npm run start
+```
+Then point your browser to http://127.0.0.1:3000
 
 # Test it
 ```
@@ -50,3 +53,4 @@ To avoid typical floating point arithmetics phenomenas (eg: 0.1 + 0.2 => 0.30000
 - html5 polyfills?
 - integer overflows? big numbers?
 - clear on number when no operator is in front
+- decouple symbol on display from formula input
