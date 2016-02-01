@@ -13,14 +13,14 @@ describe('The Shunting-yard converter', () => {
 		expect(postfix).to.equal('2 1 -');
 	});
 
-	it('should convert "/" operator', () => {
-		let postfix = convertInfixToPostfix('4 / 2');
-		expect(postfix).to.equal('4 2 /');
+	it('should convert "÷" operator', () => {
+		let postfix = convertInfixToPostfix('4 ÷ 2');
+		expect(postfix).to.equal('4 2 ÷');
 	});
 
-	it('should convert "*" operator', () => {
-		let postfix = convertInfixToPostfix('1 * 2');
-		expect(postfix).to.equal('1 2 *');
+	it('should convert "×" operator', () => {
+		let postfix = convertInfixToPostfix('1 × 2');
+		expect(postfix).to.equal('1 2 ×');
 	});
 
 	it('should convert "^" operator', () => {
@@ -28,9 +28,9 @@ describe('The Shunting-yard converter', () => {
 		expect(postfix).to.equal('2 3 ^');
 	});
 
-	it('should honor precedence of "*" before "+', () => {
-		let postfix = convertInfixToPostfix('2 * 3 + 4');
-		expect(postfix).to.equal('2 3 * 4 +');
+	it('should honor precedence of "×" before "+', () => {
+		let postfix = convertInfixToPostfix('2 × 3 + 4');
+		expect(postfix).to.equal('2 3 × 4 +');
 	});
 
 })

@@ -14,12 +14,12 @@ describe('The calculator', () => {
 	});
 
 	it('should support division', () => {
-		let result = calculate('14 / 2');
+		let result = calculate('14 ÷ 2');
 		expect(result).to.equal(7);
 	});
 
 	it('should support multiplication', () => {
-		let result = calculate('2 * 8');
+		let result = calculate('2 × 8');
 		expect(result).to.equal(16);
 	});
 
@@ -29,7 +29,7 @@ describe('The calculator', () => {
 	});
 
 	it('should work with point before line precedence', () => {
-		let result = calculate('2 + 3 * 4');
+		let result = calculate('2 + 3 × 4');
 		expect(result).to.equal(14);
 	});
 

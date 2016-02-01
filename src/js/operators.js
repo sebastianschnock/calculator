@@ -5,7 +5,7 @@
  * symbol			-	a unique symbol as an identifier
  * precedence		-	precendence value for the Shunting-yard algorithm
  * leftAssociative 	-	left- or right-associative, for the Shunting-yard algorithm
- * numberOfOperands	-	the number of operands this operator works with
+ * numOperands		-	the number of operands this operator works with
  * evalute			-	the function that gets evaluated when using this operator
  *
  * @type       {Array}
@@ -15,35 +15,35 @@ const operators = [
 		symbol: '+',
 		precedence: 2,
 		leftAssociative: true,
-		numberOfOperands: 2,
+		numOperands: 2,
 		evaluate: (x, y) => x + y
 	},
 	{
 		symbol: '-',
 		precedence: 2,
 		leftAssociative: true,
-		numberOfOperands: 2,
+		numOperands: 2,
 		evaluate: (x, y) => x - y
 	},
 	{
 		symbol: '÷',
 		precedence: 3,
 		leftAssociative: true,
-		numberOfOperands: 2,
+		numOperands: 2,
 		evaluate: (x, y) => x / y
 	},
 	{
 		symbol: '×',
 		precedence: 3,
 		leftAssociative: true,
-		numberOfOperands: 2,
+		numOperands: 2,
 		evaluate: (x, y) => x * y
 	},
 	{
 		symbol: '^',
 		precedence: 4,
 		leftAssociative: false,
-		numberOfOperands: 2,
+		numOperands: 2,
 		evaluate: (x, y) => Math.pow(x, y)
 	}
 ];

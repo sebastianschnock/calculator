@@ -1,4 +1,4 @@
-# calculator
+# Calculator
 A customizable calculator widget for your web page
 
 # Requirements
@@ -6,7 +6,7 @@ A customizable calculator widget for your web page
 - [Babelify](https://github.com/babel/babelify)
 - [Browserify](http://browserify.org/)
 
-# Installation
+# Install it
 Install the prerequisites with:
 ```
 npm install -g babel
@@ -18,24 +18,30 @@ Then checkout the project:
 git clone https://github.com/sebastianschnock/calculator.git
 ```
 
-# Build the library
+# Build it
 Inside the project directory:
 ```
 npm run build
 ```
+The output is in the ```dist``` folder.
 
-# Testing
+# Run it
+Open the file ```dist/calculator.html``` your browser.
+
+# Test it
 ```
 npm run test
 ```
 
+# Adding functionality (operators)
+To add a new button to the calculator you have to add a new operator to ```operators.js``` and add a corresponding DOM element to ```calculator.html```.
+
 # Gotchas
-Since the calculator works with common floats, typical floating point arithmetics phenomenas can be expected, eg: 0.1 + 0.2 => 0.30000000000000004
+To avoid typical floating point arithmetics phenomenas (eg: 0.1 + 0.2 => 0.30000000000000004) the float precision is fixed to 10 digits (can be configured in ```config.js```). Please don't do rocket science with this calculator!
 
 # Todo
 - support for parentheses
 - minify
-- js doc
 - documentation of format (eg white-spaces)
 - error handling for mis-formed expressions
 - remove the need for token separation through whitespace

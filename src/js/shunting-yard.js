@@ -12,31 +12,31 @@ import { isNumeric } from './helpers';
  */
 function convertInfixToPostfix(infix) {
 
-	let outputQueue = [];
-	let operatorStack = [];
-	let operator;
+	let output = [];
+	let oprStack = [];
+	let opr;
 
 	for(let token of infix.split(' ')) {
 
 		if(isNumeric(Number.parseFloat(token))) {
-			outputQueue.push(token);
+			output.push(token);
 		}
 
-		else if((operator = getOperator(token)) !== undefined) {
-			while(operatorStack.length > 0 &&
-				((operator.leftAssociative && operator.precedence <= operatorStack[operatorStack.length-1].precedence) ||
-				 (!operator.leftAssociative && operator.precedence < operatorStack[operatorStack.length-1]))) {
-				outputQueue.push(operatorStack.pop().symbol);
+		else if((opr = getOperator(token)) !== undefined) {
+			while(oprStack.length > 0 &&
+				((opr.leftAssociative && opr.precedence <= oprStack[oprStack.length-1].precedence) ||
+				 (!opr.leftAssociative && opr.precedence < oprStack[oprStack.length-1]))) {
+				output.push(oprStack.pop().symbol);
 			}
 
-			operatorStack.push(operator);
+			oprStack.push(opr);
 		}
 	}
 
-	// add the rest of operator stack to the output queue
-	outputQueue.push(...operatorStack.map(o => o.symbol).reverse());
+	// add the rest of opr stack to the output queue
+	output.push(...oprStack.map(o => o.symbol).reverse());
 
-	return outputQueue.join(' ');
+	return output.join(' ');
 }
 
 export default convertInfixToPostfix;

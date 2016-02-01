@@ -16,13 +16,12 @@ function evaluate(postfix) {
 
 	for(let token of postfix.split(' ')) {
 
-		// if(Number.isInteger(operand = parseInt(token))) {
 		if(isNumeric(operand = parseFloat(token))) {
 			operandStack.push(operand);
 		}
 
 		else if((operator = getOperator(token)) !== undefined) {
-			var operands = operandStack.splice(-operator.numberOfOperands, operator.numberOfOperands);
+			var operands = operandStack.splice(-operator.numOperands, operator.numOperands);
 			operandStack.push(operator.evaluate(...operands));
 		}
 	}

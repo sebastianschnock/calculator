@@ -13,13 +13,13 @@ describe('The postfix evaluation', () => {
 		expect(result).to.equal(3);
 	});
 
-	it('should evaluate the "/" operator', () => {
-		let result = evaluate('6 2 /');
+	it('should evaluate the "÷" operator', () => {
+		let result = evaluate('6 2 ÷');
 		expect(result).to.equal(3);
 	});
 
-	it('should evaluate the "*" operator', () => {
-		let result = evaluate('3 2 *');
+	it('should evaluate the "×" operator', () => {
+		let result = evaluate('3 2 ×');
 		expect(result).to.equal(6);
 	});
 
