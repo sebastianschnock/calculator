@@ -9,8 +9,15 @@ var _helpers = require('./helpers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * This is the main entry point to the calculator app gui.
+ * It sets up functionality of the buttons and triggers the calculation and
+ * display of the result.
+ */
+
 (function () {
 
+	// fix NodeList iteration on chrome
 	NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
 
 	var calcElem = document.querySelector('.calc');
@@ -44,17 +51,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 		}
 	}
 
-	var calculateElem = calcElem.querySelector('.calc__main--calculate');
-	calculateElem.addEventListener('click', function () {
+	calcElem.querySelector('.calc__main--calculate').addEventListener('click', function () {
 		displayElem.textContent = (0, _calculator2.default)(displayElem.textContent);
 	});
 
 	// set up clear button
-	var clearElem = calcElem.querySelector('.calc__main--clear');
-	clearElem.addEventListener('click', function () {
+	calcElem.querySelector('.calc__main--clear').addEventListener('click', function () {
 		displayElem.textContent = '';
 	});
 
+	/**
+  * Sets up a button to provide an input token to the expression when clicked.
+  * The token will be added to the calculators display.
+  *
+  * @method     addInput
+  * @param      {DOMElement}  elem    the DOM element that provides input when clicked
+  * @param      {String}  input   the input token that is added
+  */
 	function addInput(elem, input) {
 		elem.addEventListener('click', function () {
 			displayElem.textContent += '' + input;
@@ -160,13 +173,12 @@ function evaluate(postfix) {
 		for (var _iterator = postfix.split(' ')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var token = _step.value;
 
-			// if(Number.isInteger(operand = parseInt(token))) {
 			if ((0, _helpers.isNumeric)(operand = parseFloat(token))) {
 				operandStack.push(operand);
 			} else if ((operator = (0, _operators2.default)(token)) !== undefined) {
 				var _operator;
 
-				var operands = operandStack.splice(-operator.numberOfOperands, operator.numberOfOperands);
+				var operands = operandStack.splice(-operator.numOperands, operator.numOperands);
 				operandStack.push((_operator = operator).evaluate.apply(_operator, _toConsumableArray(operands)));
 			}
 		}
@@ -214,7 +226,7 @@ Object.defineProperty(exports, "__esModule", {
  * symbol			-	a unique symbol as an identifier
  * precedence		-	precendence value for the Shunting-yard algorithm
  * leftAssociative 	-	left- or right-associative, for the Shunting-yard algorithm
- * numberOfOperands	-	the number of operands this operator works with
+ * numOperands		-	the number of operands this operator works with
  * evalute			-	the function that gets evaluated when using this operator
  *
  * @type       {Array}
@@ -223,7 +235,7 @@ var operators = [{
 	symbol: '+',
 	precedence: 2,
 	leftAssociative: true,
-	numberOfOperands: 2,
+	numOperands: 2,
 	evaluate: function evaluate(x, y) {
 		return x + y;
 	}
@@ -231,7 +243,7 @@ var operators = [{
 	symbol: '-',
 	precedence: 2,
 	leftAssociative: true,
-	numberOfOperands: 2,
+	numOperands: 2,
 	evaluate: function evaluate(x, y) {
 		return x - y;
 	}
@@ -239,7 +251,7 @@ var operators = [{
 	symbol: '÷',
 	precedence: 3,
 	leftAssociative: true,
-	numberOfOperands: 2,
+	numOperands: 2,
 	evaluate: function evaluate(x, y) {
 		return x / y;
 	}
@@ -247,7 +259,7 @@ var operators = [{
 	symbol: '×',
 	precedence: 3,
 	leftAssociative: true,
-	numberOfOperands: 2,
+	numOperands: 2,
 	evaluate: function evaluate(x, y) {
 		return x * y;
 	}
@@ -255,7 +267,7 @@ var operators = [{
 	symbol: '^',
 	precedence: 4,
 	leftAssociative: false,
-	numberOfOperands: 2,
+	numOperands: 2,
 	evaluate: function evaluate(x, y) {
 		return Math.pow(x, y);
 	}
@@ -327,9 +339,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 function convertInfixToPostfix(infix) {
 
-	var outputQueue = [];
-	var operatorStack = [];
-	var operator = undefined;
+	var output = [];
+	var oprStack = [];
+	var opr = undefined;
 
 	var _iteratorNormalCompletion = true;
 	var _didIteratorError = false;
@@ -340,17 +352,17 @@ function convertInfixToPostfix(infix) {
 			var token = _step.value;
 
 			if ((0, _helpers.isNumeric)(Number.parseFloat(token))) {
-				outputQueue.push(token);
-			} else if ((operator = (0, _operators2.default)(token)) !== undefined) {
-				while (operatorStack.length > 0 && (operator.leftAssociative && operator.precedence <= operatorStack[operatorStack.length - 1].precedence || !operator.leftAssociative && operator.precedence < operatorStack[operatorStack.length - 1])) {
-					outputQueue.push(operatorStack.pop().symbol);
+				output.push(token);
+			} else if ((opr = (0, _operators2.default)(token)) !== undefined) {
+				while (oprStack.length > 0 && (opr.leftAssociative && opr.precedence <= oprStack[oprStack.length - 1].precedence || !opr.leftAssociative && opr.precedence < oprStack[oprStack.length - 1])) {
+					output.push(oprStack.pop().symbol);
 				}
 
-				operatorStack.push(operator);
+				oprStack.push(opr);
 			}
 		}
 
-		// add the rest of operator stack to the output queue
+		// add the rest of opr stack to the output queue
 	} catch (err) {
 		_didIteratorError = true;
 		_iteratorError = err;
@@ -366,11 +378,11 @@ function convertInfixToPostfix(infix) {
 		}
 	}
 
-	outputQueue.push.apply(outputQueue, _toConsumableArray(operatorStack.map(function (o) {
+	output.push.apply(output, _toConsumableArray(oprStack.map(function (o) {
 		return o.symbol;
 	}).reverse()));
 
-	return outputQueue.join(' ');
+	return output.join(' ');
 }
 
 exports.default = convertInfixToPostfix;
