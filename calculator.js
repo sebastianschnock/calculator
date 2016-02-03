@@ -5,8 +5,6 @@ var _calculator = require('./calculator');
 
 var _calculator2 = _interopRequireDefault(_calculator);
 
-var _helpers = require('./helpers');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -22,6 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 	var calcElem = document.querySelector('.calc');
 	var displayElem = calcElem.querySelector('.calc__expression');
+	var clearOnInput = true;
 
 	// set up digit and operator buttons
 	var _iteratorNormalCompletion = true;
@@ -52,12 +51,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 	}
 
 	calcElem.querySelector('.calc__main--calculate').addEventListener('click', function () {
-		displayElem.textContent = (0, _calculator2.default)(displayElem.textContent);
+		var result = (0, _calculator2.default)(displayElem.textContent);
+		if (!Number.isFinite(result)) clearOnInput = true;
+		displayElem.textContent = result;
 	});
 
 	// set up clear button
 	calcElem.querySelector('.calc__main--clear').addEventListener('click', function () {
-		displayElem.textContent = '';
+		displayElem.textContent = '0';
+		clearOnInput = true;
 	});
 
 	/**
@@ -70,12 +72,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   */
 	function addInput(elem, input) {
 		elem.addEventListener('click', function () {
+			if (clearOnInput) {
+				displayElem.textContent = '';
+				clearOnInput = !clearOnInput;
+			}
 			displayElem.textContent += '' + input;
 		});
 	}
 })(document);
 
-},{"./calculator":2,"./helpers":5}],2:[function(require,module,exports){
+},{"./calculator":2}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -101,40 +107,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * @method     calculate
  * @param      {String}  expr  an expression in infix notation (eg. '1 + 2 * 3')
- * @return     {Number}  the calulated result
+ * @return     {Number}  the calulated result, or NaN when the expression was misformed
  */
 function calculate(expr) {
 	var normalized = normalizePre(expr);
-	var result = (0, _evaluatePostfix2.default)((0, _shuntingYard2.default)(normalized));
+	var infix = (0, _shuntingYard2.default)(normalized);
+	var result = undefined;
+	try {
+		result = (0, _evaluatePostfix2.default)(infix);
+	} catch (err) {
+		return Number.NaN;
+	}
 	return normalizePost(result);
 }
 
 function normalizePre(expr) {
-	var normalized = expr.trim();
 	// handle special case: expression starts with a negative number
-	return normalized.replace(/^-\s/, '0 - ');
+	return expr.trim().replace(/^-\s/, '0 - ');
 }
 
 function normalizePost(result) {
 	// round floats to deal with floating point arithmetic
 	// see http://floating-point-gui.de/
 	// also remove trailing zeros
-	var normalized = Number.parseFloat(result.toFixed(_config2.default.floatPrecision));
-	return normalized;
+	return Number.parseFloat(result.toFixed(_config2.default.floatPrecision));
 }
 
 exports.default = calculate;
 
 },{"./config":3,"./evaluate-postfix":4,"./shunting-yard":7}],3:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	floatPrecision: 10
-};
-
+module.exports={
+	"floatPrecision": 10
+}
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -158,6 +162,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @method     evaluate
  * @param      {String}	postfix  an expression in postfix notation
  * @returns    {Number}	the result of the evaluation
+ * @throws     {Error} an exception when the expression is misformed
+ * 
+ * Note: the different tokens in the expression must be separated by whitespace.
+ * For example: "1 2 +" instead of "1 2+"
  */
 function evaluate(postfix) {
 
@@ -173,15 +181,25 @@ function evaluate(postfix) {
 		for (var _iterator = postfix.split(' ')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var token = _step.value;
 
-			if ((0, _helpers.isNumeric)(operand = parseFloat(token))) {
+			// collect numbers
+			if ((0, _helpers.isNumeric)(operand = Number.parseFloat(token))) {
 				operandStack.push(operand);
-			} else if ((operator = (0, _operators2.default)(token)) !== undefined) {
-				var _operator;
-
-				var operands = operandStack.splice(-operator.numOperands, operator.numOperands);
-				operandStack.push((_operator = operator).evaluate.apply(_operator, _toConsumableArray(operands)));
 			}
+
+			// evaluate operators
+			else if ((operator = (0, _operators2.default)(token)) !== null) {
+					var _operator;
+
+					if (operandStack.length < operator.numOperands) throw "Not enough operands";
+					var operands = operandStack.splice(-operator.numOperands, operator.numOperands);
+					var operationResult = (_operator = operator).evaluate.apply(_operator, _toConsumableArray(operands));
+					operandStack.push(operationResult);
+				} else {
+					throw "Unknown token";
+				}
 		}
+
+		// after everything there should be only one number - the result
 	} catch (err) {
 		_didIteratorError = true;
 		_iteratorError = err;
@@ -197,6 +215,7 @@ function evaluate(postfix) {
 		}
 	}
 
+	if (operandStack.length !== 1) throw "Too many operands";
 	return operandStack[0];
 }
 
@@ -278,35 +297,13 @@ var operators = [{
  *
  * @method     getOperator
  * @param      {String}  symbol  a symbol like "+"
- * @return     {Object}  the found operator object or undefined
+ * @return     {Object}  the found operator object or null
  */
 function getOperator(symbol) {
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-
-	try {
-		for (var _iterator = operators[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-			var operator = _step.value;
-
-			if (operator.symbol === symbol) return operator;
-		}
-	} catch (err) {
-		_didIteratorError = true;
-		_iteratorError = err;
-	} finally {
-		try {
-			if (!_iteratorNormalCompletion && _iterator.return) {
-				_iterator.return();
-			}
-		} finally {
-			if (_didIteratorError) {
-				throw _iteratorError;
-			}
-		}
-	}
-
-	return undefined;
+	var operator = operators.find(function (o) {
+		return o.symbol === symbol;
+	});
+	return operator !== undefined ? operator : null;
 }
 
 exports.default = getOperator;
@@ -336,6 +333,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @method     convertInfixToPostfix
  * @param      {String}	infix   the string in infix to convert
  * @return     {String}	the converted string in postfix notation
+ * 
+ * Note: the different tokens in the expression must be separated by whitespace.
+ * For example: "1 + 2" instead of "1+2". The whitespace separation is taken over to the result.
  */
 function convertInfixToPostfix(infix) {
 
@@ -351,18 +351,24 @@ function convertInfixToPostfix(infix) {
 		for (var _iterator = infix.split(' ')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var token = _step.value;
 
+			// write numbers first
 			if ((0, _helpers.isNumeric)(Number.parseFloat(token))) {
 				output.push(token);
-			} else if ((opr = (0, _operators2.default)(token)) !== undefined) {
-				while (oprStack.length > 0 && (opr.leftAssociative && opr.precedence <= oprStack[oprStack.length - 1].precedence || !opr.leftAssociative && opr.precedence < oprStack[oprStack.length - 1])) {
-					output.push(oprStack.pop().symbol);
-				}
-
-				oprStack.push(opr);
 			}
+
+			// collect operators to write later
+			else if ((opr = (0, _operators2.default)(token)) !== null) {
+					// higher precedence operators should be written earlier
+					while (oprStack.length > 0 && (opr.leftAssociative && opr.precedence <= oprStack[oprStack.length - 1].precedence || !opr.leftAssociative && opr.precedence < oprStack[oprStack.length - 1])) {
+
+						output.push(oprStack.pop().symbol);
+					}
+
+					oprStack.push(opr);
+				}
 		}
 
-		// add the rest of opr stack to the output queue
+		// add rest of the operator stack to the output queue
 	} catch (err) {
 		_didIteratorError = true;
 		_iteratorError = err;

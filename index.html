@@ -15,12 +15,16 @@
 		</header>
 
 		<output class='calc__display'>
-			<span class='calc__expression'></span>
+			<span class='calc__expression'>0</span>
 		</output>
 
 		<div class='calc__controls'>
 		
 			<div class='calc__digits'>
+
+				<!-- we use as data-attribute for the input value so we are
+				     free to use an image or anything for the representation -->
+
 				<button class='calc__digit' data-calc-input='1'>1</button>
 				<button class='calc__digit' data-calc-input='2'>2</button>
 				<button class='calc__digit' data-calc-input='3'>3</button>
@@ -44,7 +48,7 @@
 
 			<div class='calc__main-controls'>
 				<button class='calc__main calc__main--calculate'>=</button>
-				<button class='calc__main calc__main--clear'>c</button>
+				<button class='calc__main calc__main--clear'>AC</button>
 			</div>
 
 		</div>
