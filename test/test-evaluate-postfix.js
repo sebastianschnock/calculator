@@ -31,6 +31,17 @@ describe('The postfix evaluation', () => {
 	it('should support negative numbers', () => {
 		let result = evaluate('0 2 -');
 		expect(result).to.equal(-2);
-	})
+	});
 
+	it('should throw an exception when there is a wrong number of operands in the expression', () => {
+		expect(evaluate.bind({}, '1 ^')).to.throw("Not enough operands");
+	});
+
+	it('should throw an exception when there is a wrong number of operands in the expression', () => {
+		expect(evaluate.bind({}, '1 2')).to.throw("Too many operands");
+	});
+
+	it('should throw an exception when there is an unkown token in the expression', () => {
+		expect(evaluate.bind({}, '1 2 ?')).to.throw("Unknown token");
+	});
 })
