@@ -23,7 +23,7 @@ import calculate from './calculator';
 	// set up calculate button
 	calcElem.querySelector('.calc__main--calculate').addEventListener('click', () => {
 		const result = calculate(displayElem.textContent);
-		if(Number.isNaN(result)) clearOnInput = true;
+		if(!Number.isFinite(result)) clearOnInput = true;
 		displayElem.textContent = result;
 	});
 
