@@ -13,6 +13,7 @@ import calculate from './calculator';
 
 	const calcElem = document.querySelector('.calc');
 	const displayElem = calcElem.querySelector('.calc__expression');
+	let clearOnInput = true;
 	
 	// set up digit and operator buttons
 	for(let elem of calcElem.querySelectorAll('[data-calc-input]')) {
@@ -21,7 +22,9 @@ import calculate from './calculator';
 
 	// set up calculate button
 	calcElem.querySelector('.calc__main--calculate').addEventListener('click', () => {
-		displayElem.textContent = calculate(displayElem.textContent);
+		const result = calculate(displayElem.textContent);
+		if(Number.isNaN(result)) clearOnInput = true;
+		displayElem.textContent = result;
 	});
 
 	// set up clear button
@@ -40,6 +43,10 @@ import calculate from './calculator';
 	 */
 	function addInput(elem, input) {
 		elem.addEventListener('click', () => {
+			if(clearOnInput) {
+				displayElem.textContent = '';
+				clearOnInput = !clearOnInput;
+			}
 			displayElem.textContent += `${input}`;
 		});
 	}
