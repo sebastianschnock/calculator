@@ -29,7 +29,8 @@ import calculate from './calculator';
 
 	// set up clear button
 	calcElem.querySelector('.calc__main--clear').addEventListener('click', () => {
-		displayElem.textContent = '';
+		displayElem.textContent = '0';
+		clearOnInput = true;
 	});
 
 
