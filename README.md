@@ -1,21 +1,17 @@
 # Calculator
-A customizable calculator widget for your web page
+A customizable calculator app in 80ies beach style flavor.
 
-# Requirements
-- [Babel](http://babeljs.io/)
-- [Babelify](https://github.com/babel/babelify)
-- [Browserify](http://browserify.org/)
+# Showcase
+http://sebastianschnock.github.io/calculator/
 
 # Install it
-Install the prerequisites with:
-```
-npm install -g babel
-npm install -g browserify
-npm install -g babelify
-```
-Then checkout the project:
+Checkout the project:
 ```
 git clone https://github.com/sebastianschnock/calculator.git
+```
+Install the dependencies (inside of the project directory):
+```
+npm install
 ```
 
 # Build it
@@ -37,22 +33,38 @@ npm run test
 ```
 
 # Adding functionality (operators)
-To add a new button to the calculator you have to add a new operator to ```operators.js``` and add a corresponding DOM element to ```calculator.html```.
+To add a new button to the calculator you have to add a new operator to ```operators.js``` and add a corresponding DOM element to ```index.html```.
+
+As an example we add the modulo operator to the calculator. Add this line to the operators in ```index.html```:
+```
+<button class='calc__opr calc__opr--exp' data-calc-input=' % '>%</button>
+```
+And add this block to ```operators.js```:
+```
+    {
+        symbol: '%',
+        precedence: 3,
+        leftAssociative: true,
+        numOperands: 2,
+        evaluate: (x, y) => x % y
+    }
+```
+That's it.
+This would be the operator definition for square root:
+```
+    {
+        symbol: '√',
+        precedence: 5,
+        leftAssociative: false,
+        numOperands: 1,
+        evaluate: (x) => Math.sqrt(x)
+    }
+```
 
 # Gotchas
 To avoid typical floating point arithmetics phenomenas (eg: 0.1 + 0.2 => 0.30000000000000004) the float precision is fixed to 10 digits (can be configured in ```config.js```). Please don't do rocket science with this calculator!
 
 # Todo
-- favicon
-- clear on number when no operator is in front
 - keyboard input
 - support for parentheses
-- minify
-- documentation of format (eg white-spaces)
-- error handling for mis-formed expressions
-- remove the need for token separation through whitespace
-- more tests, with complex expressions
-- support insertion of expression directly via keyboard
-- html5 polyfills?
-- integer overflows? big numbers?
-- decouple symbol on display from formula input
+- better error handling and input validation
