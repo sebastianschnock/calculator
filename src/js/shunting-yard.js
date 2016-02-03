@@ -27,7 +27,7 @@ function convertInfixToPostfix(infix) {
 		}
 
 		// collect operators to write later
-		else if((opr = getOperator(token)) !== undefined) {
+		else if((opr = getOperator(token)) !== null) {
 			// higher precedence operators should be written earlier
 			while(oprStack.length > 0 &&
 				((opr.leftAssociative && opr.precedence <= oprStack[oprStack.length-1].precedence) ||
