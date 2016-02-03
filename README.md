@@ -43,6 +43,9 @@ To add a new button to the calculator you have to add a new operator to ```opera
 To avoid typical floating point arithmetics phenomenas (eg: 0.1 + 0.2 => 0.30000000000000004) the float precision is fixed to 10 digits (can be configured in ```config.js```). Please don't do rocket science with this calculator!
 
 # Todo
+- favicon
+- clear on number when no operator is in front
+- keyboard input
 - support for parentheses
 - minify
 - documentation of format (eg white-spaces)
@@ -52,5 +55,4 @@ To avoid typical floating point arithmetics phenomenas (eg: 0.1 + 0.2 => 0.30000
 - support insertion of expression directly via keyboard
 - html5 polyfills?
 - integer overflows? big numbers?
-- clear on number when no operator is in front
 - decouple symbol on display from formula input

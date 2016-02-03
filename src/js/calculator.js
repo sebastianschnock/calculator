@@ -10,23 +10,21 @@ import config from  './config';
  * @return     {Number}  the calulated result
  */
 function calculate(expr) {
-	let normalized = normalizePre(expr);
-	let result = evaluate(convertInfixToPostfix(normalized))
+	const normalized = normalizePre(expr);
+	const result = evaluate(convertInfixToPostfix(normalized));
 	return normalizePost(result);
 }
 
 function normalizePre(expr) {
-	let normalized = expr.trim();
 	// handle special case: expression starts with a negative number
-	return normalized.replace(/^-\s/, '0 - ');
+	return expr.trim().replace(/^-\s/, '0 - ');
 }
 
 function normalizePost(result) {
 	// round floats to deal with floating point arithmetic
 	// see http://floating-point-gui.de/
 	// also remove trailing zeros
-	let normalized = Number.parseFloat(result.toFixed(config.floatPrecision));
-	return normalized;
+	return Number.parseFloat(result.toFixed(config.floatPrecision));
 }
 
 export default calculate;

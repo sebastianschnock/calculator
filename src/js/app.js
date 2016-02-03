@@ -1,5 +1,4 @@
 import calculate from './calculator';
-import { isNumeric } from './helpers';
 
 /**
  * This is the main entry point to the calculator app gui.
@@ -12,8 +11,8 @@ import { isNumeric } from './helpers';
 	// fix NodeList iteration on chrome
 	NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
 
-	let calcElem = document.querySelector('.calc');
-	let displayElem = calcElem.querySelector('.calc__expression');
+	const calcElem = document.querySelector('.calc');
+	const displayElem = calcElem.querySelector('.calc__expression');
 	
 	// set up digit and operator buttons
 	for(let elem of calcElem.querySelectorAll('[data-calc-input]')) {

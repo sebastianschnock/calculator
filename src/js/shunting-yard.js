@@ -25,7 +25,7 @@ function convertInfixToPostfix(infix) {
 		else if((opr = getOperator(token)) !== undefined) {
 			while(oprStack.length > 0 &&
 				((opr.leftAssociative && opr.precedence <= oprStack[oprStack.length-1].precedence) ||
-				 (!opr.leftAssociative && opr.precedence < oprStack[oprStack.length-1]))) {
+				(!opr.leftAssociative && opr.precedence < oprStack[oprStack.length-1]))) {
 				output.push(oprStack.pop().symbol);
 			}
 

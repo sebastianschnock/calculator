@@ -53,13 +53,11 @@ const operators = [
  *
  * @method     getOperator
  * @param      {String}  symbol  a symbol like "+"
- * @return     {Object}  the found operator object or undefined
+ * @return     {Object}  the found operator object or null
  */
 function getOperator(symbol) {
-	for(let operator of operators) {
-		if(operator.symbol === symbol) return operator;
-	}
-	return undefined;
+	const operator = operators.find((o) => o.symbol === symbol);
+	return operator !== undefined ? operator : null;
 }
 
 export default getOperator;
