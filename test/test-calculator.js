@@ -45,4 +45,8 @@ describe('The calculator', () => {
 	it('should normalize floating point numbers', () => {
 		expect(calculate('.1 + .2')).to.equal(0.3);
 	});
+
+	it('should return NaN on misformed expressions', () => {
+		expect(calculate('1 ^')).to.be.NaN;
+	});
 })

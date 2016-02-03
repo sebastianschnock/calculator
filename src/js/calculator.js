@@ -7,11 +7,17 @@ import config from  './config';
  *
  * @method     calculate
  * @param      {String}  expr  an expression in infix notation (eg. '1 + 2 * 3')
- * @return     {Number}  the calulated result
+ * @return     {Number}  the calulated result, or NaN when the expression was misformed
  */
 function calculate(expr) {
 	const normalized = normalizePre(expr);
-	const result = evaluate(convertInfixToPostfix(normalized));
+	const infix = convertInfixToPostfix(normalized);
+	let result;
+	try {
+		result = evaluate(infix);
+	} catch(err) {
+		return Number.NaN;
+	}
 	return normalizePost(result);
 }
 
