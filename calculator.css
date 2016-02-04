@@ -61,10 +61,15 @@ table {
 
 html {
   box-sizing: border-box;
+  height: 100%:
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+body {
+	background: linear-gradient(to bottom, #feffff 0%,#ddf1f9 35%,#c9e3ed 100%);
 }
 
 @font-face {
