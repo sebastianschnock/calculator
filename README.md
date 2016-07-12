@@ -1,3 +1,5 @@
+[![Dependency Status](https://dependencyci.com/github/sebastianschnock/calculator/badge)](https://dependencyci.com/github/sebastianschnock/calculator)
+
 # Calculator
 A customizable calculator app in 80ies beach style flavor.
 
